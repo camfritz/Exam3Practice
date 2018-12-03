@@ -12,6 +12,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_MANGLE_NICE = 0;
+    private static final int REQUEST_MANGLE_RUDE = 1;
 
     private Button mNiceButton, mRudeButton;
     private EditText mFirstNameField;
@@ -49,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
                     t.show();
                 }
                 else {
-
+                    Intent i = MangleRudeActivity.newIntent(MainActivity.this, mFirstNameField.getText().toString());
+                    startActivityForResult(i, REQUEST_MANGLE_RUDE);
                 }
             }
         });
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REQUEST_MANGLE_NICE && resultCode == Activity.RESULT_OK) {
+        if((requestCode == REQUEST_MANGLE_NICE || requestCode == REQUEST_MANGLE_RUDE) && resultCode == Activity.RESULT_OK) {
             mFirstNameField.setText("");
         }
     }
