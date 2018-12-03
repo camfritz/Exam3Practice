@@ -1,5 +1,6 @@
 package edu.fritzcamoregonstate.exampractice3;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final int REQUEST_MANGLE_NICE = 0;
 
     private Button mNiceButton, mRudeButton;
     private EditText mFirstNameField;
@@ -33,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     Intent i = MangleNiceActivity.newIntent(MainActivity.this, mFirstNameField.getText().toString());
-                    startActivity(i);
+                    startActivityForResult(i, REQUEST_MANGLE_NICE);
                 }
             }
         });
@@ -50,6 +53,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQUEST_MANGLE_NICE && resultCode == Activity.RESULT_OK) {
+            mFirstNameField.setText("");
+        }
     }
 
     private boolean nameFieldisEmpty() {

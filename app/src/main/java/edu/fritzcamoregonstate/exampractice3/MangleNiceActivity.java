@@ -2,6 +2,7 @@ package edu.fritzcamoregonstate.exampractice3;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import java.util.Random;
 public class MangleNiceActivity extends AppCompatActivity {
 
     private static final String EXTRA_FIRST_NAME = "edu.fritzcamoregonstate.mangle_nice_activity.first_name";
+    private static final String DIALOG_RESET = "edu.fritzcamoregonstate.mangle_nice_activity.dialog_reset";
 
     private TextView mNameNice;
     private String mName;
@@ -32,6 +34,8 @@ public class MangleNiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mangle_nice);
 
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+
         //Set button views
         mRemangleButton = findViewById(R.id.remangle_button_nice);
         mResetButton = findViewById(R.id.reset_button_nice);
@@ -48,6 +52,14 @@ public class MangleNiceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mangleName();
+            }
+        });
+
+        mResetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ResetDialogFragment resetDialog = new ResetDialogFragment();
+                resetDialog.show(fragmentManager, DIALOG_RESET);
             }
         });
     }
